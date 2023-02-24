@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   saveDetails(form: any) {
     if (form.value.text == "1111111" && form.value.password == "1111111") {
       this.viewLogin = false;
-      this.router.navigate(['home'])
+      this.router.navigate(['./admin'])
     }
   }
 }
