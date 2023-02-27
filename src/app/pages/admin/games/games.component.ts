@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from 'src/app/services/game.service';
 import { GeneralService } from 'src/app/services/general.service';
 import { TeamService } from 'src/app/services/team.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { PopupScoresComponent } from './popup-scores/popup-scores.component';
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
@@ -11,20 +12,23 @@ import { TeamService } from 'src/app/services/team.service';
 })
 export class GamesComponent implements OnInit {
 
-
+  displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'resultScore'];
   teams: any[] = [];
+  games: any[] = [];
+  gameFinish: any[] = [];
   loading: boolean = false;
-  dataSource: any[] = []
   form: FormGroup = new FormGroup({});
   flag: boolean = true;
+
+
 
   constructor(
     private fb: FormBuilder,
     private teams_Service: TeamService,
     private general_Service: GeneralService,
     private games_Service: GameService,
-  ) {
-  }
+    private dialogRef: MatDialog
+  ) { }
 
   initForm() {
     this.form = this.fb.group({
@@ -34,16 +38,29 @@ export class GamesComponent implements OnInit {
     });
   }
 
+  openDialog(row) {
+    this.dialogRef.open(PopupScoresComponent,
+      {
+        data:
+        {
+          id: row.id,
+          teamA: row.teamA,
+          teamB: row.teamB,
+          goalsA: row.goalsA,
+          goalsB: row.goalsB
+        }
+      });
+  }
+
   async ngOnInit() {
     this.initForm();
     this.loadData();
+    this.getGames()
   }
 
   async loadData() {
     this.teams = []
     this.loading = true;
-
-
     await this.teams_Service.GetAllAsync()
       .then((res: any) => {
         this.loading = false;
@@ -51,7 +68,39 @@ export class GamesComponent implements OnInit {
           res.result.forEach((e: any) => this.teams.push(e));
         }
       }).catch(e => this.loading = false).then(filldatatable => {
+      }
+      ).catch(e => this.loading = false)
+  }
 
+  async getGames() {
+    this.loading = true;
+    await this.games_Service.GetAllAsync(false)
+      .then((res: any) => {
+        this.loading = false;
+        if (res.success) {
+          this.games = [] = []
+          res.result.forEach((e: any) => {
+            this.games.push(e);
+            this.games = [...this.games]
+          });
+        }
+      }).catch(e => this.loading = false).then(filldatatable => {
+      }
+      ).catch(e => this.loading = false)
+
+    this.loading = true;
+    await this.games_Service.GetAllAsync(true)
+      .then((res: any) => {
+        this.gameFinish = [] = []
+        this.loading = false;
+        if (res.success) {
+          res.result.forEach((e: any) => {
+            this.gameFinish.push(e);
+            this.gameFinish = [...this.gameFinish];
+          })
+        }
+
+      }).catch(e => this.loading = false).then(filldatatable => {
       }
       ).catch(e => this.loading = false)
   }
@@ -61,15 +110,14 @@ export class GamesComponent implements OnInit {
       .CreateAsync(this.form.value)
       .then((res: any) => {
         this.loading = false;
-        if (res.success) 
-        {
+        if (res.success) {
           this.general_Service.alert(res.message);
           this.initForm()
+          this.getGames()
         }
         else this.general_Service.alert(res.message, 'error');
       })
       .catch((e) => (this.loading = false));
   }
 }
-
 

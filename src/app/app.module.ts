@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GamesComponent } from './pages/admin/games/games.component';
+import { PopupScoresComponent } from './pages/admin/games/popup-scores/popup-scores.component';
 
 @NgModule({
   declarations: [

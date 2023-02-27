@@ -1,79 +1,5 @@
 <app-admin></app-admin>
-
 <div *ngIf="loading" class="has-text-centered is-size-3">Procesando información ...</div>
-<!-- <mat-card> -->
-
-
-<!-- <div class="mat-elevation-z8">
-
-      <mat-form-field appearance="fill">
-        <mat-label>Equipo A</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let food of teams" [value]="food.id">
-            {{food.description}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Equipo B</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let food of teams" [value]="food.id">
-            {{food.description}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
-
-
-
-<!-- <table mat-table [dataSource]="dataSource" matSort>
-          <ng-container matColumnDef="ItemID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
-          <td mat-cell *matCellDef="let row; let i = row;">{{row.itemID}}</td>
-        </ng-container>
-        
-        <ng-container matColumnDef="Description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-          <td mat-cell *matCellDef="let row; let i = row;"> {{row.description}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="SalePrice">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio de Venta </th>
-          <td mat-cell *matCellDef="let row; let i = row;"> {{row.salePrice}}</td>
-        </ng-container>
-
-          
-        <ng-container matColumnDef="Stock">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock (Cantidad disponible) </th>
-            <td mat-cell *matCellDef="let row; let i = row;"> {{row.stock}}</td>
-          </ng-container>
-
-        <ng-container matColumnDef="Actions">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
-          <td mat-cell *matCellDef="let row; let i = row">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="delete(row.itemID)" > 
-                <mat-icon color="warn"  >delete</mat-icon>
-                <span class="delete">Eliminar</span>
-              </button>
-            </mat-menu>
-          </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i =index;" ></tr>
-    
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No se encontraron registros</td>
-        </tr>
-      </table> -->
-<!-- </div>
-</mat-card> -->
-
-
 <mat-card>
   <mat-card-title>Registrar Partido</mat-card-title>
   <mat-card-content>
@@ -98,16 +24,98 @@
           </mat-select>
         </mat-form-field>
       </div>
-
       <div>
         <mat-form-field appearance="fill">
-          <input  [formControlName]="'dateInitial'" matInput type="datetime-local" placeholder="start date">
+          <input [formControlName]="'dateInitial'" matInput type="datetime-local" placeholder="start date">
         </mat-form-field>
       </div>
-
       <div>
         <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Guardar</button>
       </div>
     </form>
   </mat-card-content>
-</mat-card>
+
+
+  <br>
+  <br>
+  <mat-card-title>Partidos en curso o por jugar</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="games" class="mat-elevation-z8 demo-table">
+      <!-- Position Column -->
+      <ng-container matColumnDef="teamA">
+        <th mat-header-cell *matHeaderCellDef> Equipo A </th>
+        <td mat-cell *matCellDef="let element"> {{element.teamA}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="teamB">
+        <th mat-header-cell *matHeaderCellDef> Equipo B </th>
+        <td mat-cell *matCellDef="let element"> {{element.teamB}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="dateInitial">
+        <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateInitial}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="dateFinal">
+        <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateFinal}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="resultScore">
+        <th mat-header-cell *matHeaderCellDef> Resultado </th>
+        <td mat-cell *matCellDef="let element"> {{element.resultScore}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row  *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+    <mat-card-content>
+
+      <br>
+
+      <mat-card-title>Partidos finalizados</mat-card-title>
+      <mat-card-content>
+        <table mat-table [dataSource]="gameFinish" class="mat-elevation-z8 demo-table">
+          <!-- Position Column -->
+          <ng-container matColumnDef="teamA">
+            <th mat-header-cell *matHeaderCellDef> Equipo A </th>
+            <td mat-cell *matCellDef="let element"> {{element.teamA}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="teamB">
+            <th mat-header-cell *matHeaderCellDef> Equipo B </th>
+            <td mat-cell *matCellDef="let element"> {{element.teamB}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="dateInitial">
+            <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateInitial}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="dateFinal">
+            <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateFinal}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="resultScore">
+            <th mat-header-cell *matHeaderCellDef> Resultado </th>
+            <td mat-cell *matCellDef="let element"> {{element.resultScore}} </td>
+          </ng-container>
+
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> 
+           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-card-content>

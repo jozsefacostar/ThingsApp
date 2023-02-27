@@ -20,6 +20,10 @@ import { FootballTeamComponent } from './pages/admin/teams/football-team.compone
 import { GamesComponent } from './pages/admin/games/games.component';
 import { PageNotFoundComponent } from './pages/admin/page-not-found/page-not-found.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { MatTableModule } from '@angular/material/table';
+import {MatPaginatorModule}  from '@angular/material/paginator';
+import {MatDialogModule}  from '@angular/material/dialog';
+import { PopupScoresComponent } from './pages/admin/games/popup-scores/popup-scores.component';
 
 const routes: Routes = [
   {
@@ -58,6 +62,7 @@ const routes: Routes = [
     LoginComponent,
     FootballTeamComponent,
     PageNotFoundComponent,
+    PopupScoresComponent,
     GamesComponent,
     DashboardComponent
   ],
@@ -74,15 +79,19 @@ const routes: Routes = [
     MatCardModule,
     MatMenuModule,
     MatInputModule,
+    MatTableModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatFormFieldModule,    
+    MatFormFieldModule, 
+    MatPaginatorModule,  
+    MatDialogModule,
     RouterModule.forRoot(routes)],
   exports: [
     AdminComponent,
     LoginComponent,
     FootballTeamComponent,
     GamesComponent,    
+    PopupScoresComponent,
     DashboardComponent,
     RouterModule]
 })
