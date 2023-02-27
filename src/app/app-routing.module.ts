@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -66,6 +67,7 @@ const routes: Routes = [
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
+    MatSelectModule,
     MatIconModule,
     MatListModule,
     MatGridListModule,
@@ -74,7 +76,7 @@ const routes: Routes = [
     MatInputModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
+    MatFormFieldModule,    
     RouterModule.forRoot(routes)],
   exports: [
     AdminComponent,
