@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { inject } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameService } from 'src/app/services/game.service';
 import { GeneralService } from 'src/app/services/general.service';
 
@@ -14,8 +14,15 @@ export class PopupScoresComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   Record: Record = new Record();
   loading: boolean = false;
-  
+
+  message: string = "Hola Mundo!"
+
+  @Output() messageEvent = new EventEmitter<string>();
+
+
+
   constructor(
+    public dialogRef: MatDialogRef<PopupScoresComponent>,
     private games_Service: GameService,
     private general_Service: GeneralService,
     private fb: FormBuilder,
@@ -25,9 +32,11 @@ export class PopupScoresComponent implements OnInit {
       this.Record.GoalsB = data.goalsB,
       this.Record.TeamA = data.teamA,
       this.Record.TeamB = data.teamB
-    console.log(this.Record)
   }
 
+  sendMessage() {
+    this.messageEvent.emit(this.message)
+  }
 
   initForm() {
     this.form = this.fb.group({
@@ -46,11 +55,12 @@ export class PopupScoresComponent implements OnInit {
 
   UpdateGame(form) {
     form.value.id = this.Record.ID
+    console.log(form.value)
     this.UpdateScore(form)
   }
 
 
-  async UpdateScore(form:any) {
+  async UpdateScore(form: any) {
     await this.games_Service
       .UpdateScore(form.value)
       .then((res: any) => {
@@ -58,10 +68,15 @@ export class PopupScoresComponent implements OnInit {
         if (res.success) {
           this.general_Service.alert(res.message);
           this.initForm()
+          this.closeDialog()
         }
         else this.general_Service.alert(res.message, 'error');
       })
       .catch((e) => (this.loading = false));
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }
 

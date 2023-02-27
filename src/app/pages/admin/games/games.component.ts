@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from 'src/app/services/game.service';
 import { GeneralService } from 'src/app/services/general.service';
 import { TeamService } from 'src/app/services/team.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupScoresComponent } from './popup-scores/popup-scores.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
@@ -20,6 +21,8 @@ export class GamesComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   flag: boolean = true;
 
+  message: string;
+  subscription: Subscription;
 
 
   constructor(
@@ -28,7 +31,12 @@ export class GamesComponent implements OnInit {
     private general_Service: GeneralService,
     private games_Service: GameService,
     private dialogRef: MatDialog
-  ) { }
+  ) {
+    this.dialogRef.afterAllClosed.subscribe(() => {
+      this.getGames();
+    });
+
+  }
 
   initForm() {
     this.form = this.fb.group({
@@ -50,12 +58,13 @@ export class GamesComponent implements OnInit {
           goalsB: row.goalsB
         }
       });
+
   }
 
   async ngOnInit() {
     this.initForm();
     this.loadData();
-    this.getGames()
+    this.getGames();
   }
 
   async loadData() {

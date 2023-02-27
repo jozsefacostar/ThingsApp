@@ -21,9 +21,10 @@ import { GamesComponent } from './pages/admin/games/games.component';
 import { PageNotFoundComponent } from './pages/admin/page-not-found/page-not-found.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { MatTableModule } from '@angular/material/table';
-import {MatPaginatorModule}  from '@angular/material/paginator';
-import {MatDialogModule}  from '@angular/material/dialog';
+import { MatPaginatorModule}  from '@angular/material/paginator';
+import { MatDialogModule}  from '@angular/material/dialog';
 import { PopupScoresComponent } from './pages/admin/games/popup-scores/popup-scores.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const routes: Routes = [
   {
@@ -85,6 +86,7 @@ const routes: Routes = [
     MatFormFieldModule, 
     MatPaginatorModule,  
     MatDialogModule,
+    MatCheckboxModule,
     RouterModule.forRoot(routes)],
   exports: [
     AdminComponent,
