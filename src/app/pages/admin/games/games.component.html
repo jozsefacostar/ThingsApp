@@ -34,11 +34,12 @@
       </div>
     </form>
   </mat-card-content>
+</mat-card>
 
-
-  <br>
-  <br>
-  <mat-card-title>Partidos en curso o por jugar</mat-card-title>
+<br>
+<br>
+<mat-card>
+  <mat-card-title>Partidos en curso / por jugar</mat-card-title>
   <mat-card-content>
     <table mat-table [dataSource]="games" class="mat-elevation-z8 demo-table">
       <!-- Position Column -->
@@ -72,50 +73,52 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row  *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
-    <mat-card-content>
+  </mat-card-content>
+</mat-card>
 
-      <br>
+<br>
+<br>
+<mat-card>
+  <mat-card-title>Partidos finalizados</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="gameFinish" class="mat-elevation-z8 demo-table">
+      <!-- Position Column -->
+      <ng-container matColumnDef="teamA">
+        <th mat-header-cell *matHeaderCellDef> Equipo A </th>
+        <td mat-cell *matCellDef="let element"> {{element.teamA}} </td>
+      </ng-container>
 
-      <mat-card-title>Partidos finalizados</mat-card-title>
-      <mat-card-content>
-        <table mat-table [dataSource]="gameFinish" class="mat-elevation-z8 demo-table">
-          <!-- Position Column -->
-          <ng-container matColumnDef="teamA">
-            <th mat-header-cell *matHeaderCellDef> Equipo A </th>
-            <td mat-cell *matCellDef="let element"> {{element.teamA}} </td>
-          </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="teamB">
+        <th mat-header-cell *matHeaderCellDef> Equipo B </th>
+        <td mat-cell *matCellDef="let element"> {{element.teamB}} </td>
+      </ng-container>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="teamB">
-            <th mat-header-cell *matHeaderCellDef> Equipo B </th>
-            <td mat-cell *matCellDef="let element"> {{element.teamB}} </td>
-          </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="dateInitial">
+        <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateInitial}} </td>
+      </ng-container>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="dateInitial">
-            <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateInitial}} </td>
-          </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="dateFinal">
+        <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateFinal}} </td>
+      </ng-container>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="dateFinal">
-            <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateFinal}} </td>
-          </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="resultScore">
+        <th mat-header-cell *matHeaderCellDef> Resultado </th>
+        <td mat-cell *matCellDef="let element"> <strong> {{element.resultScore}} </strong> </td>
+      </ng-container>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="resultScore">
-            <th mat-header-cell *matHeaderCellDef> Resultado </th>
-            <td mat-cell *matCellDef="let element"> <strong> {{element.resultScore}} </strong>  </td>
-          </ng-container>
 
-        
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> 
-           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <mat-card-content>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

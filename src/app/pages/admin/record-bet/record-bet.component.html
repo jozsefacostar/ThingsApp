@@ -1,2 +1,44 @@
-<app-admin></app-admin>
-<p>record-bet works!</p>
+<div *ngIf="isAdmin; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock><app-admin></app-admin></ng-template>
+<ng-template #elseBlock><app-userMenu></app-userMenu></ng-template>
+
+<div *ngIf="loading" class="has-text-centered is-size-3">Procesando información ...</div>
+<mat-card *ngIf="!viewDoRecord">
+    <mat-card-title>Consultar Sesión</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="getSession()" autocomplete="off">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Código apuesta</mat-label>
+                    <input [formControlName]="'code'" matInput type="text">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Consultar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="viewDoRecord">
+    <mat-card-title>Realizar Apuesta</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="formRecordBet" (ngSubmit)="createRecord()" autocomplete="off">
+            <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Goles {{InfoSession.teamA}} </mat-label>
+                  <input [formControlName]="'goalsA'" matInput type="number">
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Goles {{InfoSession.teamB}} </mat-label>
+                  <input [formControlName]="'goalsB'" matInput type="number">
+                </mat-form-field>
+              </div>
+            <div>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">¡Apostar!</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

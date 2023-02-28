@@ -63,6 +63,10 @@ const routes: Routes = [
     component: SessionBetComponent
   },
   {
+    path: 'recordBets',
+    component: RecordBetComponent
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   },

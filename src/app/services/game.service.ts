@@ -33,6 +33,27 @@ export class GameService {
     return promise;
   }
 
+  GetAllForSession() {
+    const headers = new HttpHeaders({
+    });
+    const promise = new Promise<any>((resolve, reject) => {
+      const apiURL = `http://localhost:38481/api/Game?GetAllForSession`;
+      this.http
+        .get<any[]>(apiURL, { headers: headers })
+        .toPromise()
+        .then((res: any) => {
+          // Success
+          resolve(res);
+        },
+          err => {
+            // Error
+            reject(err);
+          }
+        );
+    });
+    return promise;
+  }
+
   CreateAsync(GameCreateCommand: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

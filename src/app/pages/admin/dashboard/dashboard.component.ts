@@ -8,7 +8,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  isAdmin:Boolean= false
+  isAdmin:boolean= false
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -33,6 +33,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
   ngOnInit(): void {
+    this.isAdminSession()
+  }
+
+  isAdminSession()
+  {
     this.isAdmin = localStorage.getItem("perfilUser") == "ADMIN" ? true: false;
   }
 }
