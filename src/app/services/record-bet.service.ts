@@ -10,6 +10,27 @@ export class RecordBetService {
     private http: HttpClient
   ) { }
 
+  GetRecordsByUser(user) {
+    const headers = new HttpHeaders({
+    });
+    const promise = new Promise<any>((resolve, reject) => {
+      const apiURL = `http://localhost:38481/api/RecordBet/${user}`;
+      this.http
+        .get<any[]>(apiURL, { headers: headers })
+        .toPromise()
+        .then((res: any) => {
+          // Success
+          resolve(res);
+        },
+          err => {
+            // Error
+            reject(err);
+          }
+        );
+    });
+    return promise;
+  }
+
   CreateAsync(SessionBetCreateCommand: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -18,6 +39,28 @@ export class RecordBetService {
       const apiURL = `http://localhost:38481/api/RecordBet`;
       this.http
         .post<any>(apiURL, JSON.stringify(SessionBetCreateCommand), { headers: headers })
+        .toPromise()
+        .then((res: any) => {
+          // Success
+          resolve(res);
+        },
+          err => {
+            // Error
+            reject(err);
+          }
+        );
+    });
+    return promise;
+  }
+
+  UpdateAsync(RecordBetUpdateCommand: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    const promise = new Promise<any>((resolve, reject) => {
+      const apiURL = `http://localhost:38481/api/RecordBet`;
+      this.http
+        .put<any>(apiURL, JSON.stringify(RecordBetUpdateCommand), { headers: headers })
         .toPromise()
         .then((res: any) => {
           // Success

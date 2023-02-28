@@ -28,6 +28,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SessionBetComponent } from './pages/admin/session-bet/session-bet.component';
 import { RecordBetComponent } from './pages/admin/record-bet/record-bet.component';
 import { UserMenuComponent } from './pages/user/menu-user/userMenu.component';
+import { PopUpUpdateScoresUserComponent } from './pages/admin/record-bet/pop-up-uodate-scores-user/pop-up-uodate-scores-user.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,7 @@ const routes: Routes = [
     FootballTeamComponent,
     PageNotFoundComponent,
     PopupScoresComponent,
+    PopUpUpdateScoresUserComponent,
     GamesComponent,
     SessionBetComponent,
     RecordBetComponent,
@@ -113,6 +115,7 @@ const routes: Routes = [
     FootballTeamComponent,
     GamesComponent,    
     PopupScoresComponent,
+    PopUpUpdateScoresUserComponent,
     DashboardComponent,
     SessionBetComponent,
     RecordBetComponent,

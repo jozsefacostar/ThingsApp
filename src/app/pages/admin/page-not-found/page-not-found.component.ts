@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
+  
+  isAdmin: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+    this.isAdminSession();
   }
 
+  isAdminSession() {
+    this.isAdmin = localStorage.getItem("perfilUser") == "ADMIN" ? true : false;
+  }
 }

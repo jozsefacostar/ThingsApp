@@ -4,20 +4,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameService } from 'src/app/services/game.service';
 import { GeneralService } from 'src/app/services/general.service';
+import { RecordBetService } from 'src/app/services/record-bet.service';
 
 @Component({
-  selector: 'app-popup-scores',
-  templateUrl: './popup-scores.component.html',
-  styleUrls: ['./popup-scores.component.scss']
+  selector: 'app-pop-up-uodate-scores-user',
+  templateUrl: './pop-up-uodate-scores-user.component.html',
+  styleUrls: ['./pop-up-uodate-scores-user.component.scss']
 })
-export class PopupScoresComponent implements OnInit {
+export class PopUpUpdateScoresUserComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   Record: Record = new Record();
   loading: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<PopupScoresComponent>,
-    private games_Service: GameService,
+    public dialogRef: MatDialogRef<PopUpUpdateScoresUserComponent>,
+    private recordbet_service: RecordBetService,
     private general_Service: GeneralService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data) {
@@ -30,10 +31,9 @@ export class PopupScoresComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      id: [''],
+      recordBet: [''],
       goalsA: [null, [Validators.required, Validators.min(0)]],
-      goalsB: [null, [Validators.required, Validators.min(0)]],
-      finalized: [false]
+      goalsB: [null, [Validators.required, Validators.min(0)]]
     });
   }
 
@@ -42,15 +42,14 @@ export class PopupScoresComponent implements OnInit {
   }
 
   UpdateGame(form) {
-    form.value.id = this.Record.ID
-    console.log(form.value)
-    this.UpdateScore(form)
+    form.value.recordBet = this.Record.ID
+    this.UpdateScore(form.value)
   }
 
 
   async UpdateScore(form: any) {
-    await this.games_Service
-      .UpdateScore(form.value)
+    await this.recordbet_service
+      .UpdateAsync(form)
       .then((res: any) => {
         this.loading = false;
         if (res.success) {

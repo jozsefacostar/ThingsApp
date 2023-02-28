@@ -26,19 +26,68 @@
         <form [formGroup]="formRecordBet" (ngSubmit)="createRecord()" autocomplete="off">
             <div>
                 <mat-form-field appearance="fill">
-                  <mat-label>Goles {{InfoSession.teamA}} </mat-label>
-                  <input [formControlName]="'goalsA'" matInput type="number">
+                    <mat-label>Goles {{InfoSession.teamA}} </mat-label>
+                    <input [formControlName]="'goalsA'" matInput type="number">
                 </mat-form-field>
-              </div>
-              <div>
-                <mat-form-field appearance="fill">
-                  <mat-label>Goles {{InfoSession.teamB}} </mat-label>
-                  <input [formControlName]="'goalsB'" matInput type="number">
-                </mat-form-field>
-              </div>
+            </div>
             <div>
-                <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">¡Apostar!</button>
+                <mat-form-field appearance="fill">
+                    <mat-label>Goles {{InfoSession.teamB}} </mat-label>
+                    <input [formControlName]="'goalsB'" matInput type="number">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="!formRecordBet.valid">¡Apostar!</button>
             </div>
         </form>
+    </mat-card-content>
+</mat-card>
+
+<br>
+<br>
+<mat-card>
+    <mat-card-title>Mis apuestas</mat-card-title>
+    <mat-card-content>
+        <table mat-table [dataSource]="records" class="mat-elevation-z8 demo-table">
+            <!-- Position Column -->
+            <ng-container matColumnDef="teamA">
+                <th mat-header-cell *matHeaderCellDef> Equipo A </th>
+                <td mat-cell *matCellDef="let element"> {{element.teamA}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="teamB">
+                <th mat-header-cell *matHeaderCellDef> Equipo B </th>
+                <td mat-cell *matCellDef="let element"> {{element.teamB}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="dateInitial">
+                <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
+                <td mat-cell *matCellDef="let element"> {{element.dateInitial}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="dateFinal">
+                <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
+                <td mat-cell *matCellDef="let element"> {{element.dateFinal}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="myScore">
+                <th mat-header-cell *matHeaderCellDef> Mi Apuesta </th>
+                <td mat-cell *matCellDef="let element"> <strong> {{element.myScore}} </strong> </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="realScore">
+                <th mat-header-cell *matHeaderCellDef> Marcador Real </th>
+                <td mat-cell *matCellDef="let element"> <strong> {{element.realScore}} </strong> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
+        </table>
     </mat-card-content>
 </mat-card>

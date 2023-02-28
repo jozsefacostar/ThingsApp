@@ -5,6 +5,8 @@ import { GeneralService } from 'src/app/services/general.service';
 import { Subscription } from 'rxjs';
 import { SessionBetService } from 'src/app/services/session-bet.service';
 import { RecordBetService } from 'src/app/services/record-bet.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PopUpUpdateScoresUserComponent as PopUpUpdateScoresUserComponent } from './pop-up-uodate-scores-user/pop-up-uodate-scores-user.component';
 
 @Component({
   selector: 'app-record-bet',
@@ -13,6 +15,7 @@ import { RecordBetService } from 'src/app/services/record-bet.service';
 })
 export class RecordBetComponent implements OnInit {
 
+  displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore'];
   viewDoRecord: boolean = false;
   isAdmin: boolean = false;
   loading: boolean = false;
@@ -20,13 +23,20 @@ export class RecordBetComponent implements OnInit {
   formRecordBet: FormGroup = new FormGroup({});
   flag: boolean = true;
   InfoSession: InfoSession = new InfoSession()
+  records: any[] = []
 
   constructor(
     private fb: FormBuilder,
+    private dialogRef: MatDialog,
     private sessionBet_Service: SessionBetService,
     private general_Service: GeneralService,
     private recordBetService: RecordBetService
-  ) { }
+  ) {
+    this.dialogRef.afterAllClosed.subscribe(() => {
+      this.getRecords();
+    });
+
+  }
 
   isAdminSession() {
     this.isAdmin = localStorage.getItem("perfilUser") == "ADMIN" ? true : false;
@@ -38,19 +48,51 @@ export class RecordBetComponent implements OnInit {
     });
 
     this.formRecordBet = this.fb.group({
-      sessionBet: [null, [Validators.required]],
-      user: [null, [Validators.required]],
+      sessionBet: [null],
+      user: [null],
       goalsA: [null, [Validators.required, Validators.min(0)]],
       goalsB: [null, [Validators.required, Validators.min(0)]],
-      Game: [null, [Validators.required]]
+      Game: [null]
     });
   }
 
   async ngOnInit() {
     this.isAdminSession()
-    this.initForm();
+    this.initForm()
+    this.getRecords()
   }
 
+  openDialog(row) {
+    console.log(row)
+    this.dialogRef.open(PopUpUpdateScoresUserComponent,
+      {
+        data:
+        {
+          id: row.recordBets,
+          teamA: row.teamA,
+          teamB: row.teamB,
+          goalsA: row.goalsA,
+          goalsB: row.goalsB
+        }
+      });
+  }
+
+  async getRecords() {
+    this.loading = true;
+    await this.recordBetService.GetRecordsByUser(localStorage.getItem("idUser"))
+      .then((res: any) => {
+        this.loading = false;
+        if (res.success) {
+          this.records = [] = []
+          res.result.forEach((e: any) => {
+            this.records.push(e);
+            this.records = [...this.records]
+          });
+        }
+      }).catch(e => this.loading = false).then(filldatatable => {
+      }
+      ).catch(e => this.loading = false)
+  }
 
   async getSession() {
     await this.sessionBet_Service
@@ -58,7 +100,7 @@ export class RecordBetComponent implements OnInit {
       .then((res: any) => {
         this.loading = false;
         if (res.success) {
-          this.general_Service.alert(res.message);
+          this.general_Service.alert('Digite su marcador de apuesta');
           this.InfoSession.teamA = res.result.teamA;
           this.InfoSession.teamB = res.result.teamB;
           this.InfoSession.game = res.result.game;
@@ -81,6 +123,7 @@ export class RecordBetComponent implements OnInit {
         if (res.success) {
           this.general_Service.alert(res.message);
           this.viewDoRecord = false;
+          this.getRecords()
           this.initForm()
         }
         else this.general_Service.alert(res.message, 'error');
