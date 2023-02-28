@@ -47,10 +47,10 @@ export class LoginComponent implements OnInit {
           this.setLocalStorage(res.result.ID, res.result.Name, res.result.ProfileCode);
           switch (res.result.ProfileCode) {
             case "ADMIN":
-              this.router.navigate([`./games`])
+              this.router.navigate([`./dashboard`])
               break;
               case "USER":
-                this.router.navigate([`./sessionBets`])
+                this.router.navigate([`./dashboard`])
                 break;
             default:
               break;

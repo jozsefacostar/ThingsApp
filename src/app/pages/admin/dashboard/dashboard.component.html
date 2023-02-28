@@ -1,4 +1,7 @@
-<app-admin></app-admin>
+<div *ngIf="isAdmin; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock><app-admin></app-admin></ng-template>
+<ng-template #elseBlock><app-userMenu></app-userMenu></ng-template>
+
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="350px">

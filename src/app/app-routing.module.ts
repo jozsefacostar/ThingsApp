@@ -27,6 +27,7 @@ import { PopupScoresComponent } from './pages/admin/games/popup-scores/popup-sco
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SessionBetComponent } from './pages/admin/session-bet/session-bet.component';
 import { RecordBetComponent } from './pages/admin/record-bet/record-bet.component';
+import { UserMenuComponent } from './pages/user/menu-user/userMenu.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent
+  },
+  {
+    path: 'userMenu',
+    component: UserMenuComponent
   },
   {
     path: 'team',
@@ -67,6 +72,7 @@ const routes: Routes = [
   declarations: [
     AdminComponent,
     LoginComponent,
+    UserMenuComponent,
     FootballTeamComponent,
     PageNotFoundComponent,
     PopupScoresComponent,
@@ -98,6 +104,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)],
   exports: [
     AdminComponent,
+    UserMenuComponent,
     LoginComponent,
     FootballTeamComponent,
     GamesComponent,    
