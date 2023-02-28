@@ -68,7 +68,7 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="resultScore">
         <th mat-header-cell *matHeaderCellDef> Resultado </th>
-        <td mat-cell *matCellDef="let element"> {{element.resultScore}} </td>
+        <td mat-cell *matCellDef="let element"> <strong> {{element.resultScore}} </strong> </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -110,7 +110,7 @@
           <!-- Symbol Column -->
           <ng-container matColumnDef="resultScore">
             <th mat-header-cell *matHeaderCellDef> Resultado </th>
-            <td mat-cell *matCellDef="let element"> {{element.resultScore}} </td>
+            <td mat-cell *matCellDef="let element"> <strong> {{element.resultScore}} </strong>  </td>
           </ng-container>
 
         

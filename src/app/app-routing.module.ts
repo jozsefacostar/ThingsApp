@@ -25,6 +25,8 @@ import { MatPaginatorModule}  from '@angular/material/paginator';
 import { MatDialogModule}  from '@angular/material/dialog';
 import { PopupScoresComponent } from './pages/admin/games/popup-scores/popup-scores.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SessionBetComponent } from './pages/admin/session-bet/session-bet.component';
+import { RecordBetComponent } from './pages/admin/record-bet/record-bet.component';
 
 const routes: Routes = [
   {
@@ -52,6 +54,10 @@ const routes: Routes = [
     component: GamesComponent
   },
   {
+    path: 'sessionBets',
+    component: SessionBetComponent
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   },
@@ -65,6 +71,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     PopupScoresComponent,
     GamesComponent,
+    SessionBetComponent,
+    RecordBetComponent,
     DashboardComponent
   ],
   imports: [
@@ -95,6 +103,8 @@ const routes: Routes = [
     GamesComponent,    
     PopupScoresComponent,
     DashboardComponent,
+    SessionBetComponent,
+    RecordBetComponent,
     RouterModule]
 })
 export class AppRoutingModule { }

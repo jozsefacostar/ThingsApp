@@ -1,13 +1,13 @@
 <mat-card>
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
-        <form [formGroup]="form" (ngSubmit)="saveDetails(form)" autocomplete="off">
+        <form [formGroup]="form" (ngSubmit)="Login1(form)" autocomplete="off">
             <div>
                 <mat-form-field appearance="legacy">
                     <mat-label>Identificación:</mat-label>
-                    <input matInput type="text" formControlName="text" placeholder="Identificación">
+                    <input matInput type="text" formControlName="NIT" placeholder="Identificación">
                     <mat-icon matSuffix>numbers</mat-icon>
-                    <mat-hint>Input the fully qualified email address</mat-hint>
+                    <mat-error>Identificación es requerida</mat-error>
                 </mat-form-field>
             </div>
 
@@ -15,9 +15,9 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Password </mat-label>
                     <input matInput [type]="flag ? 'password' : 'text'" placeholder="Enter your password"
-                        formControlName="password">
+                        formControlName="Pass">
                     <mat-icon (click)="flag=!flag" matSuffix>{{ flag ? 'visibility' : 'visibility_off' }}</mat-icon>
-                    <mat-error>Name is required</mat-error>
+                    <mat-error>Contraseña es requerida</mat-error>
                 </mat-form-field>
             </div>
 
