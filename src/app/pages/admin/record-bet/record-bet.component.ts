@@ -14,8 +14,8 @@ import { PopUpUpdateScoresUserComponent as PopUpUpdateScoresUserComponent } from
   styleUrls: ['./record-bet.component.scss']
 })
 export class RecordBetComponent implements OnInit {
-
-  displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore'];
+  displayedColumns1: string[] = ['name', 'myScore', 'realScore', 'status','online'];
+  displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore', 'edit', 'view'];
   viewDoRecord: boolean = false;
   isAdmin: boolean = false;
   loading: boolean = false;
@@ -24,6 +24,10 @@ export class RecordBetComponent implements OnInit {
   flag: boolean = true;
   InfoSession: InfoSession = new InfoSession()
   records: any[] = []
+  recordsDetail: any[] = []
+  viewDetail: boolean = false;
+  gamesNames: string = '';
+  finalized: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -72,7 +76,8 @@ export class RecordBetComponent implements OnInit {
           teamA: row.teamA,
           teamB: row.teamB,
           goalsA: row.goalsA,
-          goalsB: row.goalsB
+          goalsB: row.goalsB,
+          sessionBet: row.sessionBet
         }
       });
   }
@@ -88,6 +93,34 @@ export class RecordBetComponent implements OnInit {
             this.records.push(e);
             this.records = [...this.records]
           });
+        }
+      }).catch(e => this.loading = false).then(filldatatable => {
+      }
+      ).catch(e => this.loading = false)
+  }
+
+
+
+  async GetRecordBySession(row) {
+    console.log(row)
+    this.loading = true;
+    await this.recordBetService.GetRecordBySession(row.sessionBet)
+      .then((res: any) => {
+        this.loading = false;
+        if (res.success) {
+          this.finalized = row.finalized
+          this.gamesNames = row.teamA + ' - ' + row.teamB
+          this.viewDetail = true;
+          this.recordsDetail = [] = []
+          res.result.forEach((e: any) => {
+            this.recordsDetail.push(e);
+            this.recordsDetail = [...this.recordsDetail]
+          });
+        }
+        else {
+          this.general_Service.alert(res.message);
+          this.gamesNames = ''
+          this.viewDetail = false;
         }
       }).catch(e => this.loading = false).then(filldatatable => {
       }

@@ -45,7 +45,6 @@
 </mat-card>
 
 <br>
-<br>
 <mat-card>
     <mat-card-title>Mis apuestas</mat-card-title>
     <mat-card-content>
@@ -77,7 +76,7 @@
             <!-- Symbol Column -->
             <ng-container matColumnDef="myScore">
                 <th mat-header-cell *matHeaderCellDef> Mi Apuesta </th>
-                <td mat-cell *matCellDef="let element"> <strong> {{element.myScore}} </strong> </td>
+                <td mat-cell *matCellDef="let element" disabled="true"> <strong> {{element.myScore}} </strong> </td>
             </ng-container>
 
             <!-- Symbol Column -->
@@ -86,8 +85,75 @@
                 <td mat-cell *matCellDef="let element"> <strong> {{element.realScore}} </strong> </td>
             </ng-container>
 
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef> Editar </th>
+                <td class="view-pointer" mat-cell *matCellDef="let element" (click)="openDialog(element)"> <strong>
+                        <span class="material-icons">edit</span> </strong> </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="view">
+                <th mat-header-cell *matHeaderCellDef> Ver </th>
+                <td class="view-pointer" mat-cell *matCellDef="let element" (click)="GetRecordBySession(element)">
+                    <strong> <span style="color:blue" class="material-icons">remove_red_eye</span> </strong>
+                </td>
+            </ng-container>
+
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<br>
+<mat-card *ngIf="viewDetail">
+    <mat-card-title>Detalle sesión: ({{gamesNames}}) - {{ finalized == true ? '¡Partido finalizado!' : '¡Partido en en curso!' }} </mat-card-title>
+    <mat-card-content>
+        <table mat-table [dataSource]="recordsDetail" class="mat-elevation-z8 demo-table">
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nombre Usuario </th>
+                <td mat-cell *matCellDef="let element"> {{element.nameUser}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="myScore">
+                <th mat-header-cell *matHeaderCellDef> Mi Marcador </th>
+                <td mat-cell *matCellDef="let element" disabled="true"> <strong> {{element.myScore}} </strong> </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="realScore">
+                <th mat-header-cell *matHeaderCellDef> Marcador Real </th>
+                <td mat-cell *matCellDef="let element"> <strong> {{element.realScore}} </strong> </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td class="view-pointer" mat-cell *matCellDef="let element">
+                    <strong
+                        [ngClass]="{'green-text': element.realScore ==element.myScore , 'red-text': element.realScore != element.myScore}">
+                        <span class="material-icons">square</span>
+                    </strong>
+                </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="online">
+                <th mat-header-cell *matHeaderCellDef> OnLine </th>
+                <td class="view-pointer" mat-cell *matCellDef="let element">
+                    <strong [ngClass]="{'green-text': element.loggued, 'red-text': !element.loggued}">
+                        <span class="material-icons">person</span>
+                    </strong>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
         </table>
     </mat-card-content>
 </mat-card>

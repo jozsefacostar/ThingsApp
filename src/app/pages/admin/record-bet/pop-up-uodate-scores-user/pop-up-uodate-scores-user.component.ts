@@ -26,7 +26,8 @@ export class PopUpUpdateScoresUserComponent implements OnInit {
       this.Record.GoalsA = data.goalsA,
       this.Record.GoalsB = data.goalsB,
       this.Record.TeamA = data.teamA,
-      this.Record.TeamB = data.teamB
+      this.Record.TeamB = data.teamB,      
+      this.Record.SessionBet = data.sessionBet
   }
 
   initForm() {
@@ -73,7 +74,8 @@ export class Record {
   TeamB: string = '';
   GoalsA: Number = 0;
   GoalsB: Number = 0;
-  Finalized: boolean = false
+  Finalized: boolean = false;
+  SessionBet: string = ''
 
 }
 
