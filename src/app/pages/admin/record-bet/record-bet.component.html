@@ -110,7 +110,7 @@
 
 <br>
 <mat-card *ngIf="viewDetail">
-    <mat-card-title>Detalle sesión: ({{gamesNames}}) - {{ finalized == true ? '¡Partido finalizado!' : '¡Partido en en curso!' }} </mat-card-title>
+    <mat-card-title>({{gamesNames}}) - {{ statusgame == 0 ? '¡Partido Finalizado!' : statusgame == 1 ? '¡Partido en curso!' :  statusgame == 2 ? "Pendiente por jugar":"Triunfo" }} </mat-card-title>
     <mat-card-content>
         <table mat-table [dataSource]="recordsDetail" class="mat-elevation-z8 demo-table">
             <!-- Position Column -->

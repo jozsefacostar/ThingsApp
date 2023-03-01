@@ -27,7 +27,7 @@ export class RecordBetComponent implements OnInit {
   recordsDetail: any[] = []
   viewDetail: boolean = false;
   gamesNames: string = '';
-  finalized: boolean = false;
+  statusgame: Number = 0; //0: Finalizado 1: En juego 2: Pendiente por jugar : 3: Jugado
 
   constructor(
     private fb: FormBuilder,
@@ -108,7 +108,8 @@ export class RecordBetComponent implements OnInit {
       .then((res: any) => {
         this.loading = false;
         if (res.success) {
-          this.finalized = row.finalized
+          this.statusgame = row.statusGame
+          console.log(this.statusgame)
           this.gamesNames = row.teamA + ' - ' + row.teamB
           this.viewDetail = true;
           this.recordsDetail = [] = []
