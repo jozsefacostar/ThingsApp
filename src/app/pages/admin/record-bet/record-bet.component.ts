@@ -7,6 +7,8 @@ import { SessionBetService } from 'src/app/services/session-bet.service';
 import { RecordBetService } from 'src/app/services/record-bet.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpUpdateScoresUserComponent as PopUpUpdateScoresUserComponent } from './pop-up-uodate-scores-user/pop-up-uodate-scores-user.component';
+import { SignalRService } from 'src/app/services/signalr.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-record-bet',
@@ -14,7 +16,7 @@ import { PopUpUpdateScoresUserComponent as PopUpUpdateScoresUserComponent } from
   styleUrls: ['./record-bet.component.scss']
 })
 export class RecordBetComponent implements OnInit {
-  displayedColumns1: string[] = ['name', 'myScore', 'realScore', 'status','online'];
+  displayedColumns1: string[] = ['name', 'myScore', 'realScore', 'status', 'online'];
   displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore', 'edit', 'view'];
   viewDoRecord: boolean = false;
   isAdmin: boolean = false;
@@ -34,7 +36,8 @@ export class RecordBetComponent implements OnInit {
     private dialogRef: MatDialog,
     private sessionBet_Service: SessionBetService,
     private general_Service: GeneralService,
-    private recordBetService: RecordBetService
+    private recordBetService: RecordBetService,
+    private httpCLiente: HttpClient,
   ) {
     this.dialogRef.afterAllClosed.subscribe(() => {
       this.getRecords();
@@ -59,6 +62,7 @@ export class RecordBetComponent implements OnInit {
       Game: [null]
     });
   }
+
 
   async ngOnInit() {
     this.isAdminSession()

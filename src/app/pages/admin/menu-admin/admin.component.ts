@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GeneralService } from 'src/app/services/general.service';
+import { SignalRService } from 'src/app/services/signalr.service';
 import { UserService } from 'src/app/services/user.service';
 
-@Component({
+@Component({ 
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
@@ -17,15 +18,24 @@ export class AdminComponent implements OnInit {
   constructor(
     private UserServicee: UserService,
     private router: Router,
-    private general_Service: GeneralService
+    private signalR: SignalRService,
+    private general_Service: GeneralService,
   ) { }
 
   ngOnInit(): void {
+    this.getChartsSignalR();
     this.idUser = localStorage.getItem("idUser");
     this.name = localStorage.getItem("nameUser");
+    this.UserLogoutCommand = { ID: this.idUser }
 
-    this.UserLogoutCommand = { ID : this.idUser }
   }
+
+  getChartsSignalR() {
+    this.signalR.connectAddGameSignalR();
+  }
+
+
+
 
   ClearStorage() {
     localStorage.clear();
@@ -46,6 +56,9 @@ export class AdminComponent implements OnInit {
       })
       .catch((e) => (this.loading = false));
   }
+
+
+
 
 
 }
