@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   Login1(form: any) {
-    console.log(form)
     this.Login(form)
 
   }

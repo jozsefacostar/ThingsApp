@@ -11,7 +11,6 @@ export class SummaryGamesService {
     ) { }
 
     GetRecordsByUserAndSession(user) {
-        console.log(user)
         const headers = new HttpHeaders({
         });
         const promise = new Promise<any>((resolve, reject) => {

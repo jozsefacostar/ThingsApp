@@ -39,7 +39,6 @@ export class AdminComponent implements OnInit {
         this.loading = false;
         if (res.success) {
           this.general_Service.alert(res.message);
-          console.log(res.result)
           this.ClearStorage()
           this.router.navigate([`./login`])
         }

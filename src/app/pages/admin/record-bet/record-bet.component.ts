@@ -17,7 +17,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecordBetComponent implements OnInit {
   displayedColumns1: string[] = ['name', 'myScore', 'realScore', 'status', 'online'];
-  displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore', 'edit', 'view'];
+  displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'edit', 'view'];
   viewDoRecord: boolean = false;
   isAdmin: boolean = false;
   loading: boolean = false;
@@ -62,8 +62,6 @@ export class RecordBetComponent implements OnInit {
       Game: [null]
     });
   }
-
-
   async ngOnInit() {
     this.isAdminSession()
     this.initForm()
@@ -102,8 +100,6 @@ export class RecordBetComponent implements OnInit {
       }
       ).catch(e => this.loading = false)
   }
-
-
 
   async GetRecordBySession(row) {
     this.loading = true;
@@ -167,7 +163,6 @@ export class RecordBetComponent implements OnInit {
       .catch((e) => (this.loading = false));
   }
 }
-
 
 export class InfoSession {
   teamA: string = ''

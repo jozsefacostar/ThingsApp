@@ -43,7 +43,6 @@ export class PopupScoresComponent implements OnInit {
 
   UpdateGame(form) {
     form.value.id = this.Record.ID
-    console.log(form.value)
     this.UpdateScore(form)
   }
 

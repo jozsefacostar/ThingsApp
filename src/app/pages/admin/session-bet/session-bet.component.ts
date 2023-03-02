@@ -20,10 +20,8 @@ export class SessionBetComponent implements OnInit {
   loading: boolean = false;
   form: FormGroup = new FormGroup({});
   flag: boolean = true;
-
   message: string;
   subscription: Subscription;
-
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +30,6 @@ export class SessionBetComponent implements OnInit {
     private games_Service: GameService,
     private dialogRef: MatDialog
   ) { }
-
 
   isAdminSession() {
     this.isAdmin = localStorage.getItem("perfilUser") == "ADMIN" ? true : false;

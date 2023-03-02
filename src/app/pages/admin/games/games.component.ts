@@ -46,8 +46,6 @@ export class GamesComponent implements OnInit {
     });
   }
 
-
-
   openDialog(row) {
     this.dialogRef.open(PopupScoresComponent,
       {
@@ -60,7 +58,6 @@ export class GamesComponent implements OnInit {
           goalsB: row.goalsB
         }
       });
-
   }
 
   async ngOnInit() {

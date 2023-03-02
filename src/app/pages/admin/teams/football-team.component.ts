@@ -10,7 +10,6 @@ export class FootballTeamComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('probando FootballTeamComponent')
   }
 
 }
