@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RecordBetService } from 'src/app/services/record-bet.service';
-import { MatDialog } from '@angular/material/dialog';
+import * as signalR from '@microsoft/signalr';
+import { SignalRService } from 'src/app/services/signalr.service';
 import { SummaryGamesService } from 'src/app/services/summary-games-service';
 @Component({
   selector: 'app-summary-games',
@@ -8,7 +8,7 @@ import { SummaryGamesService } from 'src/app/services/summary-games-service';
   styleUrls: ['./summary-games.component.scss']
 })
 export class SummaryGamesComponent implements OnInit {
-  displayedColumns: string[] = ['name','teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore', 'statusrecord', 'statusgame', 'online'];
+  displayedColumns: string[] = ['name', 'teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore', 'statusrecord', 'statusgame', 'online'];
   viewDoRecord: boolean = false;
   isAdmin: boolean = false;
   loading: boolean = false;
@@ -17,6 +17,7 @@ export class SummaryGamesComponent implements OnInit {
 
   constructor(
     private SummaryGamesService: SummaryGamesService,
+    private signalR: SignalRService,
   ) { }
 
   isAdminSession() {
@@ -24,14 +25,33 @@ export class SummaryGamesComponent implements OnInit {
   }
 
 
+  /** Función que identifica cuando hay un cambio de marcadores en el partido */
+  public addEventListenerChangesScoresAllGames() {
+    let connection = new signalR.HubConnectionBuilder()
+      .withUrl("http://localhost:38481/allGames")
+      .build();
+
+    connection.start()
+      .then(() => console.log("addEventListenerChangesScoresAllGames"))
+      .catch(err => console.log('addEventListenerChangesScoresAllGames' + err));
+
+    connection.on("AllGamesSummary", data => {
+      this.loading = true;
+      this.getRecords()
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
+
+    });
+  }
+
   async ngOnInit() {
     this.isAdminSession()
     this.getRecords()
+    this.addEventListenerChangesScoresAllGames()
   }
 
   async getRecords() {
-    console.log(1)
-    this.loading = true;
     await this.SummaryGamesService.GetRecordsByUserAndSession(localStorage.getItem("idUser"))
       .then((res: any) => {
         this.loading = false;
@@ -43,7 +63,6 @@ export class SummaryGamesComponent implements OnInit {
             this.records = [...this.records]
           });
         }
-        this.loading = true;
       }).catch(e => this.loading = false).then(filldatatable => {
       }
       ).catch(e => this.loading = false)

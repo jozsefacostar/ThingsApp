@@ -1,3 +1,5 @@
+<app-loading *ngIf="loading"></app-loading>
+
 <div *ngIf="isAdmin; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock><app-admin></app-admin></ng-template>
 <ng-template #elseBlock><app-userMenu></app-userMenu></ng-template>
@@ -55,7 +57,7 @@
                 <th mat-header-cell *matHeaderCellDef> Estado Apuesta</th>
                 <td class="view-pointer" mat-cell *matCellDef="let element">
                     <strong
-                        [ngClass]="{'green-text': element.realScore ==element.myScore , 'red-text': element.realScore != element.myScore}">
+                        [ngClass]="{'yellow-text': element.statusGameDesc =='Pendiente por jugar',  'green-text': element.realScore ==element.myScore , 'red-text': element.realScore != element.myScore}">
                         <span class="material-icons">square</span>
                     </strong>
                 </td>

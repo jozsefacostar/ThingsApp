@@ -19,24 +19,21 @@ export class UserMenuComponent implements OnInit {
     private UserServicee: UserService,
     private router: Router,
     private signalR: SignalRService,
-    // private signalR1: SignalRService,
     private general_Service: GeneralService
   ) { }
- 
+
   ngOnInit(): void {
     this.getChartsSignalR();
     this.idUser = localStorage.getItem("idUser");
     this.name = localStorage.getItem("nameUser");
 
-    this.UserLogoutCommand = { ID : this.idUser }
+    this.UserLogoutCommand = { ID: this.idUser }
   }
 
   getChartsSignalR() {
     this.signalR.connectAddGameSignalR();
     this.signalR.updateScoresGameSignalR();
     this.signalR.updateScoresByUserSignalR();
-    this.signalR.connectChartsSignalR();
-    
   }
 
 

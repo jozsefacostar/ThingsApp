@@ -31,30 +31,6 @@ export class SignalRService {
             }).catch()
     }
 
-
-    /** Función que crea HUB para comunicación con chart */
-    public connectChartsSignalR() {
-        let connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:38481/allGames")
-            .build();
-
-        connection.start()
-            .then(() => console.log("connection started"))
-            .catch(err => console.log('error connection started' + err));
-
-        connection.on("AllGamesSummary", data => {
-            console.log(data);
-        });
-    }
-
-    /** Función que dispara el metodo charts */
-    public getCharts = () => {
-        this.http.get('http://localhost:38481/api/Chart')
-            .subscribe(res => {
-                console.log(res);
-            })
-    }
-
     /** Función que lee cuando se ejecuta función de agregar partido */
     public connectAddGameSignalR() {
         let connectionn = new signalR.HubConnectionBuilder()
@@ -80,7 +56,7 @@ export class SignalRService {
             .then(() => console.log("connection update"))
             .catch(err => console.log('error connection update' + err));
         connection.on("transfer", data => {
-            console.log('partido creado: ' + data);
+            console.log('updateScoresGameSignalR: ' + data);
             this.general_Service.alertSingle(data)
         });
     }
@@ -100,7 +76,5 @@ export class SignalRService {
             this.general_Service.alertSingle(data)
         });
     }
-
-
 
 }
