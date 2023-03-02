@@ -77,4 +77,20 @@ export class SignalRService {
         });
     }
 
+       /** Función que lee cuando se ejecuta función modificar marcadores */
+
+       public createRecordByUser() {
+        let connection = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:38481/createRecordByUser")
+            .build();
+
+        connection.start()
+            .then(() => console.log("connection update"))
+            .catch(err => console.log('error connection update' + err));
+        connection.on("createRecordBetByUser", data => {
+            console.log('updateScoresGameSignalR: ' + data);
+            this.general_Service.alertSingle(data)
+        });
+    }
+
 }

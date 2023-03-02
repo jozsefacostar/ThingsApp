@@ -34,6 +34,7 @@ export class UserMenuComponent implements OnInit {
     this.signalR.connectAddGameSignalR();
     this.signalR.updateScoresGameSignalR();
     this.signalR.updateScoresByUserSignalR();
+    this.signalR.createRecordByUser();
   }
 
 
@@ -48,7 +49,6 @@ export class UserMenuComponent implements OnInit {
         this.loading = false;
         if (res.success) {
           this.general_Service.alert(res.message);
-          console.log(res.result)
           this.ClearStorage()
           this.router.navigate([`./login`])
         }
