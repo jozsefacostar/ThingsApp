@@ -31,7 +31,8 @@ export class AdminComponent implements OnInit {
   }
 
   getChartsSignalR() {
-    this.signalR.connectAddGameSignalR();
+    // this.signalR.connectAddGameSignalR();
+    this.signalR.updateScoresGameSignalR();
   }
 
 

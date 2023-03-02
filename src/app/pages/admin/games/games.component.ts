@@ -6,7 +6,6 @@ import { TeamService } from 'src/app/services/team.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupScoresComponent } from './popup-scores/popup-scores.component';
 import { Subscription } from 'rxjs';
-import { SignalRService } from 'src/app/services/signalr.service';
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
@@ -31,7 +30,6 @@ export class GamesComponent implements OnInit {
     private teams_Service: TeamService,
     private general_Service: GeneralService,
     private games_Service: GameService,
-    private signalR: SignalRService,
     private dialogRef: MatDialog
   ) {
     this.dialogRef.afterAllClosed.subscribe(() => {

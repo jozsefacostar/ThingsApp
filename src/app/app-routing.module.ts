@@ -29,11 +29,16 @@ import { SessionBetComponent } from './pages/admin/session-bet/session-bet.compo
 import { RecordBetComponent } from './pages/admin/record-bet/record-bet.component';
 import { UserMenuComponent } from './pages/user/menu-user/userMenu.component';
 import { PopUpUpdateScoresUserComponent } from './pages/admin/record-bet/pop-up-uodate-scores-user/pop-up-uodate-scores-user.component';
+import { SummaryGamesComponent } from './pages/admin/summary-games/summary-games.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
+  },
+  {
+    path: 'summary',
+    component: SummaryGamesComponent
   },
   {
     path: 'login',
@@ -70,7 +75,7 @@ const routes: Routes = [
   {
     path: '**',
     component: PageNotFoundComponent
-  },
+  }
 ]
 
 @NgModule({
@@ -85,6 +90,7 @@ const routes: Routes = [
     GamesComponent,
     SessionBetComponent,
     RecordBetComponent,
+    SummaryGamesComponent,
     DashboardComponent
   ],
   imports: [
@@ -115,6 +121,7 @@ const routes: Routes = [
     FootballTeamComponent,
     GamesComponent,    
     PopupScoresComponent,
+    SummaryGamesComponent,
     PopUpUpdateScoresUserComponent,
     DashboardComponent,
     SessionBetComponent,

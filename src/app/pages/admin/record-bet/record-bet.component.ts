@@ -71,7 +71,7 @@ export class RecordBetComponent implements OnInit {
   }
 
   openDialog(row) {
-    console.log(row)
+    this.viewDetail = false;
     this.dialogRef.open(PopUpUpdateScoresUserComponent,
       {
         data:
@@ -106,14 +106,12 @@ export class RecordBetComponent implements OnInit {
 
 
   async GetRecordBySession(row) {
-    console.log(row)
     this.loading = true;
     await this.recordBetService.GetRecordBySession(row.sessionBet)
       .then((res: any) => {
         this.loading = false;
         if (res.success) {
           this.statusgame = row.statusGame
-          console.log(this.statusgame)
           this.gamesNames = row.teamA + ' - ' + row.teamB
           this.viewDetail = true;
           this.recordsDetail = [] = []

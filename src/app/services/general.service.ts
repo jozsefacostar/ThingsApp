@@ -16,4 +16,7 @@ export class GeneralService {
   alert(text: string, type: SweetAlertIcon = "success", title?: string,){
     Swal.fire(title,text,type)
   }
+  alertSingle(text: string){
+    Swal.fire(text)
+  }
 }

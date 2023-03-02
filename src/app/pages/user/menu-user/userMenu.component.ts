@@ -19,6 +19,7 @@ export class UserMenuComponent implements OnInit {
     private UserServicee: UserService,
     private router: Router,
     private signalR: SignalRService,
+    // private signalR1: SignalRService,
     private general_Service: GeneralService
   ) { }
  
@@ -32,6 +33,10 @@ export class UserMenuComponent implements OnInit {
 
   getChartsSignalR() {
     this.signalR.connectAddGameSignalR();
+    this.signalR.updateScoresGameSignalR();
+    this.signalR.updateScoresByUserSignalR();
+    this.signalR.connectChartsSignalR();
+    
   }
 
 
