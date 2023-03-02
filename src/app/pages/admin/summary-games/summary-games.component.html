@@ -2,21 +2,18 @@
 <ng-template #thenBlock><app-admin></app-admin></ng-template>
 <ng-template #elseBlock><app-userMenu></app-userMenu></ng-template>
 
-<div *ngIf="loading" class="has-text-centered is-size-3">Procesando información ...</div>
-
-
 <br>
 <mat-card>
     <mat-card-title>Resumen de Partidos</mat-card-title>
     <mat-card-content>
         <table mat-table [dataSource]="records" class="mat-elevation-z8 demo-table">
-              <!-- Position Column -->
-              <ng-container matColumnDef="name">
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Usuario </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
 
-         
+
             <!-- Position Column -->
             <ng-container matColumnDef="teamA">
                 <th mat-header-cell *matHeaderCellDef> Equipo A </th>

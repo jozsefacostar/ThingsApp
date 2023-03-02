@@ -30,6 +30,7 @@ import { RecordBetComponent } from './pages/admin/record-bet/record-bet.componen
 import { UserMenuComponent } from './pages/user/menu-user/userMenu.component';
 import { PopUpUpdateScoresUserComponent } from './pages/admin/record-bet/pop-up-uodate-scores-user/pop-up-uodate-scores-user.component';
 import { SummaryGamesComponent } from './pages/admin/summary-games/summary-games.component';
+import { LoadingComponent } from './pages/admin/loading/loading.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,7 @@ const routes: Routes = [
     AdminComponent,
     LoginComponent,
     UserMenuComponent,
+    LoadingComponent,
     FootballTeamComponent,
     PageNotFoundComponent,
     PopupScoresComponent,
@@ -118,6 +120,7 @@ const routes: Routes = [
     AdminComponent,
     UserMenuComponent,
     LoginComponent,
+    LoadingComponent,
     FootballTeamComponent,
     GamesComponent,    
     PopupScoresComponent,

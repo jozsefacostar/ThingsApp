@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   flag: boolean = true;
   viewLogin = true;
 
-  loading: boolean = false;
+  loading: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -24,6 +24,9 @@ export class LoginComponent implements OnInit {
     private general_Service: GeneralService) { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
     this.form = this.fb.group({
       NIT: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       Pass: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
@@ -37,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   async Login(form: any) {
+
     await this.UserServicee
       .Login(form.value)
       .then((res: any) => {
@@ -49,9 +53,9 @@ export class LoginComponent implements OnInit {
             case "ADMIN":
               this.router.navigate([`./games`])
               break;
-              case "USER":
-                this.router.navigate([`./summary`])
-                break;
+            case "USER":
+              this.router.navigate([`./summary`])
+              break;
             default:
               break;
           }

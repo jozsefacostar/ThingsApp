@@ -2,7 +2,6 @@
 <ng-template #thenBlock><app-admin></app-admin></ng-template>
 <ng-template #elseBlock><app-userMenu></app-userMenu></ng-template>
 
-<div *ngIf="loading" class="has-text-centered is-size-3">Procesando información ...</div>
 <mat-card *ngIf="!viewDoRecord">
     <mat-card-title>Consultar Sesión</mat-card-title>
     <mat-card-content>
@@ -97,7 +96,7 @@
             <ng-container matColumnDef="view">
                 <th mat-header-cell *matHeaderCellDef> Ver </th>
                 <td class="view-pointer" mat-cell *matCellDef="let element" (click)="GetRecordBySession(element)">
-                    <strong> <span style="color:blue" class="material-icons">remove_red_eye</span> </strong>
+                    <strong> <span style="color:rgb(55, 55, 206)" class="material-icons">remove_red_eye</span> </strong>
                 </td>
             </ng-container>
 
