@@ -19,3 +19,31 @@ table {
 .yellow-text {
   color: rgb(212, 212, 79);
 }
+
+
+.green-text {
+  color: green;
+}
+.green-text:hover {
+  color: rgb(152, 201, 152);
+}
+
+.red-text {
+  color: red;
+}
+
+.red-text:hover {
+  color: rgb(185, 114, 114);
+}
+
+.yellow-text {
+  color: rgb(212, 212, 79);
+}
+
+table.demo-table tr {
+  transition: background-color 0.3s ease-out;
+}
+
+table.demo-table tr:hover {
+  background-color: #bdbaba;
+}

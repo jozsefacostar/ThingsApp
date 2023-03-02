@@ -8,7 +8,7 @@ import { SummaryGamesService } from 'src/app/services/summary-games-service';
   styleUrls: ['./summary-games.component.scss']
 })
 export class SummaryGamesComponent implements OnInit {
-  displayedColumns: string[] = ['teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore', 'statusrecord', 'statusgame', 'online'];
+  displayedColumns: string[] = ['name','teamA', 'teamB', 'dateInitial', 'dateFinal', 'myScore', 'realScore', 'statusrecord', 'statusgame', 'online'];
   viewDoRecord: boolean = false;
   isAdmin: boolean = false;
   loading: boolean = false;
@@ -32,12 +32,13 @@ export class SummaryGamesComponent implements OnInit {
   async getRecords() {
     console.log(1)
     this.loading = true;
-    await this.SummaryGamesService.GetRecordsByUser(localStorage.getItem("idUser"))
+    await this.SummaryGamesService.GetRecordsByUserAndSession(localStorage.getItem("idUser"))
       .then((res: any) => {
         this.loading = false;
         if (res.success) {
           this.records = [] = []
           res.result.forEach((e: any) => {
+            console.log(e)
             this.records.push(e);
             this.records = [...this.records]
           });

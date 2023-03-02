@@ -10,12 +10,12 @@ export class SummaryGamesService {
         private http: HttpClient
     ) { }
 
-    GetRecordsByUser(user) {
+    GetRecordsByUserAndSession(user) {
         console.log(user)
         const headers = new HttpHeaders({
         });
         const promise = new Promise<any>((resolve, reject) => {
-            const apiURL = `http://localhost:38481/api/Chart/${user}`;
+            const apiURL = `http://localhost:38481/api/RecordBet/GetRecordsByUserAndSession/${user}`;
             this.http
                 .get<any[]>(apiURL, { headers: headers })
                 .toPromise()

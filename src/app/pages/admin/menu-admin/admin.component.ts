@@ -4,7 +4,7 @@ import { GeneralService } from 'src/app/services/general.service';
 import { SignalRService } from 'src/app/services/signalr.service';
 import { UserService } from 'src/app/services/user.service';
 
-@Component({ 
+@Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
@@ -23,20 +23,10 @@ export class AdminComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getChartsSignalR();
     this.idUser = localStorage.getItem("idUser");
     this.name = localStorage.getItem("nameUser");
     this.UserLogoutCommand = { ID: this.idUser }
-
   }
-
-  getChartsSignalR() {
-    // this.signalR.connectAddGameSignalR();
-    this.signalR.updateScoresGameSignalR();
-  }
-
-
-
 
   ClearStorage() {
     localStorage.clear();
